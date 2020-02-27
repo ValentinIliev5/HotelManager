@@ -5,6 +5,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Owin;
 using HotelManagerReservationsPt3.Models;
+using HotelManager.Models;
+using HotelManager.DBMethods;
 
 namespace HotelManagerReservationsPt3.Account
 {
@@ -30,10 +32,20 @@ namespace HotelManagerReservationsPt3.Account
                 // Validate the user password
                 var manager = Context.GetOwinContext().GetUserManager<ApplicationUserManager>();
                 var signinManager = Context.GetOwinContext().GetUserManager<ApplicationSignInManager>();
+                var result = SignInStatus.Failure;
 
-                // This doen't count login failures towards account lockout
-                // To enable password failures to trigger lockout, change to shouldLockout: true
-                var result = signinManager.PasswordSignIn(Username.Text, Password.Text, RememberMe.Checked, shouldLockout: false);
+                if (manager.FindByName(Username.Text) != null)
+                {
+                    string UserID = manager.FindByName(Username.Text).Id;
+                    if (!DBManager.IsUserNotFiredOrDeleted(UserID))
+                    {
+                        Response.Write("<script>alert('Your account has been deactivated.')</script>");
+                    }
+                    else
+                    {
+                        result = signinManager.PasswordSignIn(Username.Text, Password.Text, RememberMe.Checked, shouldLockout: false);
+                    }
+                }
 
                 switch (result)
                 {
@@ -44,7 +56,7 @@ namespace HotelManagerReservationsPt3.Account
                         Response.Redirect("/Account/Lockout");
                         break;
                     case SignInStatus.RequiresVerification:
-                        Response.Redirect(String.Format("/Account/TwoFactorAuthenticationSignIn?ReturnUrl={0}&RememberMe={1}", 
+                        Response.Redirect(String.Format("/Account/TwoFactorAuthenticationSignIn?ReturnUrl={0}&RememberMe={1}",
                                                         Request.QueryString["ReturnUrl"],
                                                         RememberMe.Checked),
                                           true);

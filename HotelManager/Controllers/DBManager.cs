@@ -67,7 +67,7 @@ namespace HotelManager.DBMethods
 
             try
             {
- 
+
 
                 using (HotelDBContext context = new HotelDBContext())
                 {
@@ -129,6 +129,30 @@ namespace HotelManager.DBMethods
             {
                 users = new List<User>();
 
+                return false;
+            }
+
+            return true;
+        }
+
+        public static bool IsUserNotFiredOrDeleted(string UserID)
+        {
+            try
+            {
+                using (HotelDBContext context = new HotelDBContext())
+                {
+                    if (context.Users.Count(w => w.UserID == UserID) == 0)
+                    {
+                        return false;
+                    }
+                    if (!context.Users.First(w => w.UserID == UserID).IsActive)
+                    {
+                        return false;
+                    }
+                }
+            }
+            catch (Exception)
+            {
                 return false;
             }
 
