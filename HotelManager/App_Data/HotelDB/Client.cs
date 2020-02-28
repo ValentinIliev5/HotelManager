@@ -8,6 +8,10 @@ namespace HotelManager.Models
 {
     public class Client
     {
+        public Client()
+        {
+            Reservations = new List<Reservation>();
+        }
         public int ID { get; set; }
 
         [Required]
@@ -25,8 +29,6 @@ namespace HotelManager.Models
         [Required]
         public bool IsAdult { get; set; }
 
-
-        public int ReservationID { get; set; }
-        public Reservation Reservation { get; set; }
+        public List<Reservation> Reservations { get; set; }
     }
 }

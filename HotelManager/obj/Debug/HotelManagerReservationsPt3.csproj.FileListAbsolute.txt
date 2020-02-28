@@ -230,3 +230,4 @@ D:\HotelManager\HotelManager\obj\Debug\HotelManagerReservationsPt3.csproj.Genera
 D:\HotelManager\HotelManager\obj\Debug\HotelManagerReservationsPt3.csproj.CopyComplete
 D:\HotelManager\HotelManager\obj\Debug\HotelManagerReservationsPt3.dll
 D:\HotelManager\HotelManager\obj\Debug\HotelManagerReservationsPt3.pdb
+D:\HotelManager\HotelManager\obj\Debug\HotelManagerReservationsPt3.Migrations.HotelDB2.resources
