@@ -18,16 +18,14 @@ namespace HotelManager.Models
 
         [Required]
         public int RoomID { get; set; }
-        [Required]
-        public Room Room { get; set; }
+        public virtual Room Room { get; set; }
 
         [Required]
         public int UserID { get; set; }
-        [Required]
-        public User User { get; set; }
+        public virtual User User { get; set; }
 
         [Required]
-        public List<Client> Clients { get; set; }
+        public virtual List<Client> Clients { get; set; }
 
         [Required]
         public DateTime ArrivalDate { get; set; }

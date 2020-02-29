@@ -44,6 +44,6 @@ namespace HotelManager.Models
         [Required]
         public bool IsAdmin { get; set; }
 
-        public List<Reservation> Reservations { get; set; }
+        public virtual List<Reservation> Reservations { get; set; }
     }
 }

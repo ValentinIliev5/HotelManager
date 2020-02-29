@@ -13,14 +13,20 @@ namespace HotelManagerReservationsPt3
         {
             routes.MapPageRoute(
                 "Register",
-                "Register",
+                "Account/Register",
                 "~/Account/Register.aspx"
             );
 
             routes.MapPageRoute(
                 "Login",
-                "Login",
+                "Account/Login",
                 "~/Account/Login.aspx"
+            );
+
+            routes.MapPageRoute(
+                "About",
+                "About",
+                "~/About.aspx"
             );
 
             routes.MapPageRoute(
@@ -51,6 +57,42 @@ namespace HotelManagerReservationsPt3
                 "Edit-Client",
                 "User/Clients/EditClient/{ID}",
                 "~/Views/User/EditClient.aspx"
+            );
+
+            routes.MapPageRoute(
+                "Add-Room",
+                "Admin/Rooms/AddRoom",
+                "~/Views/Admin/AddRoom.aspx"
+            );
+
+            routes.MapPageRoute(
+                "Rooms",
+                "Admin/Rooms",
+                "~/Views/Admin/Rooms.aspx"
+            );
+
+            routes.MapPageRoute(
+                "Edit-Room",
+                "Admin/Rooms/EditRoom/{ID}",
+                "~/Views/Admin/EditRoom.aspx"
+            );
+
+           routes.MapPageRoute(
+                "Reservations",
+                "User/Reservations",
+                "~/Views/User/Reservations.aspx"
+            );
+
+            routes.MapPageRoute(
+                "Add-Reservation",
+                "User/Reservations/AddReservation",
+                "~/Views/User/AddReservation.aspx"
+            );
+
+            routes.MapPageRoute(
+                "Edit-Reservation",
+                "User/Reservations/EditReservation/{ID}",
+                "~/Views/User/EditReservation.aspx"
             );
         }
     }

@@ -44,6 +44,7 @@ namespace HotelManager.DBMethods
             return true;
         }
 
+
         public static bool FireUser(string UserID)
         {
             try
@@ -475,7 +476,298 @@ namespace HotelManager.DBMethods
 
             return true;
         }
-    }
 
+
+        //Room
+
+        public static bool AddRoom(string Capacity, string Type, string AdultPrice, string KidPrice, string Number)
+        {
+            try
+            {
+                using (HotelDBContext context = new HotelDBContext())
+                {
+                    Room room = new Room();
+                    int cap = int.Parse(Capacity);
+                    if (cap <= 3 && cap >= 1)
+                        room.Capacity = cap;
+                    else
+                        return false;
+                    room.Type = Type;
+                    room.AdultPrice = double.Parse(AdultPrice);
+                    room.KidPrice = double.Parse(KidPrice);
+                    room.Number = Number;
+
+                    context.Rooms.Add(room);
+                    context.SaveChanges();
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        public static bool ListRooms(string ColumnName, out List<ListRoom> rooms)
+        {
+            try
+            {
+                rooms = new List<ListRoom>();
+
+                var dbRooms = new List<Room>();
+
+                using (HotelDBContext context = new HotelDBContext())
+                {
+                    dbRooms = context.Rooms.ToList();
+                }
+
+                foreach (var dbRoom in dbRooms)
+                {
+                    ListRoom room = new ListRoom();
+                    room.ID = dbRoom.ID.ToString();
+                    room.Capacity = dbRoom.Capacity.ToString();
+                    room.Type = dbRoom.Type.ToString();
+                    room.AdultPrice = dbRoom.AdultPrice.ToString();
+                    room.KidPrice = dbRoom.KidPrice.ToString();
+                    room.Number = dbRoom.Number;
+
+                    rooms.Add(room);
+                }
+
+                if (ColumnName != "")
+                {
+                    rooms = rooms.OrderBy(ColumnName).ToList();
+                }
+            }
+            catch (Exception)
+            {
+                rooms = new List<ListRoom>();
+                return false;
+            }
+
+            return true;
+        }
+
+        public static bool DeleteRoom(string ID)
+        {
+
+            try
+            {
+                using (HotelDBContext context = new HotelDBContext())
+                {
+                    int RoomID = Convert.ToInt32(ID);
+                    context.Rooms.Remove(context.Rooms.First(w => w.ID == RoomID));
+                    context.SaveChanges();
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        public static bool FindRoom(string ID, out List<string> properties)
+        {
+
+            try
+            {
+                properties = new List<string>();
+
+                int RoomID = int.Parse(ID);
+                Room room = new Room();
+
+                using (HotelDBContext context = new HotelDBContext())
+                {
+                    room = context.Rooms.First(w => w.ID == RoomID);
+                }
+
+                properties.Add(room.Capacity.ToString());
+                properties.Add(room.Type);
+                properties.Add(room.AdultPrice.ToString());
+                properties.Add(room.KidPrice.ToString());
+                properties.Add(room.Number);
+            }
+            catch (Exception)
+            {
+                properties = new List<string>();
+                return false;
+            }
+
+            return true;
+        }
+
+        public static bool EditRoom(string ID, string Capacity, string Type, string AdultPrice, string KidPrice, string Number)
+        {
+            try
+            {
+                using (HotelDBContext context = new HotelDBContext())
+                {
+                    int RoomID = int.Parse(ID);
+                    Room room = context.Rooms.First(w => w.ID == RoomID);
+
+                    room.Capacity = int.Parse(Capacity);
+                    room.Type = Type;
+                    room.AdultPrice = double.Parse(AdultPrice);
+                    room.KidPrice = double.Parse(KidPrice);
+                    room.Number = Number;
+
+                    context.SaveChanges();
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        //Reservations
+
+        //public static int FindAndReturnUserDBID(string UserId)
+        //{
+        //    User user = new User();
+        //    using (HotelDBContext context = new HotelDBContext())
+        //    {
+
+        //        user = context.Users.First(w => w.UserID == UserId);
+
+        //    }
+        //    return user.ID;
+        //}
+        
+        //public static Room FindRoom(string RoomNumber)
+        //{
+        //    var room = new Room();
+        //    try
+        //    {
+        //        using (HotelDBContext context = new HotelDBContext())
+        //        {
+        //            room = context.Rooms.First(w => w.Number == RoomNumber);
+
+        //            context.SaveChanges();
+        //        }
+        //    }
+        //    catch (Exception)
+        //    {
+        //        return null; ;
+        //        throw;
+        //    }
+        //    return room;
+        //}
+
+        //public static List<Client> savedClients = new List<Client>();
+
+        //public static bool AddReservation(int RoomId, int UserId, List<Client> clients, DateTime ArrivalDate, DateTime DeparatureDate, bool HasBreackfast, bool IsAllInclusive, double Price)
+        //{
+        //    try
+        //    {
+        //        Reservation reserv = new Reservation();
+        //
+        //        reserv.RoomID = RoomId;
+        //        reserv.UserID = UserId;
+        //        reserv.Clients = clients;
+        //        reserv.ArrivalDate = ArrivalDate;
+        //        reserv.DeparatureDate = DeparatureDate;
+        //        reserv.HasBreakfast = HasBreackfast;
+        //        reserv.IsAllInclusive = IsAllInclusive;
+        //        reserv.Price = Price;
+        //
+        //        using (HotelDBContext context = new HotelDBContext())
+        //        {
+        //            context.Reservations.Add(reserv);
+        //
+        //            context.SaveChanges();
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        string a = ex.Message;
+        //        return false;
+        //    }
+        //
+        //    return true;
+        //}
+
+        public static bool ListReservations(string ColumnName, out List<ListReservation> reservations)
+        {
+            try
+            {
+                reservations = new List<ListReservation>();
+
+                var dbReservations = new List<Reservation>();
+
+                using (HotelDBContext context = new HotelDBContext())
+                {
+                    dbReservations = context.Reservations.ToList();
+
+                    foreach (var dbReservation in dbReservations)
+                    {
+
+                        ListReservation reservation = new ListReservation();
+                        reservation.ID = dbReservation.ID.ToString();
+                        reservation.RoomNumber = context.Rooms.First(w => w.ID == dbReservation.RoomID).Number;
+                        string UserID = dbReservation.User.UserID;
+                        using (ApplicationDbContext context1 = new ApplicationDbContext())
+                        {
+                            reservation.UserUsername = context1.Users.First(w => w.Id == UserID).UserName;
+                        }
+
+                        string Clients = "";
+                        foreach (var client in dbReservation.Clients)
+                        {
+                            Clients += "|" + client.FirstName + " " + client.LastName + "|";
+                        }
+
+                        reservation.Clients = Clients;
+                        reservation.ArrivalDate = dbReservation.ArrivalDate.ToShortDateString();
+                        reservation.DeparatureDate = dbReservation.DeparatureDate.ToShortDateString();
+                        reservation.HasBreakfast = dbReservation.HasBreakfast ? "1" : "0";
+                        reservation.IsAllInclusive = dbReservation.IsAllInclusive ? "1" : "0";
+                        reservation.Price = dbReservation.Price.ToString();
+
+                        reservations.Add(reservation);
+                    }
+
+                    if (ColumnName != "")
+                    {
+                        reservations = reservations.OrderBy(ColumnName).ToList();
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                reservations = new List<ListReservation>();
+                return false;
+            }
+
+            return true;
+        }
+
+        public static bool DeleteReservation(string ID)
+        {
+
+            try
+            {
+                using (HotelDBContext context = new HotelDBContext())
+                {
+                    int ReservationID = Convert.ToInt32(ID);
+                    context.Reservations.First(w => w.ID == ReservationID).Clients = new List<Client>();
+                    context.Reservations.Remove(context.Reservations.First(w => w.ID == ReservationID));
+                    context.SaveChanges();
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+    }
 
 }

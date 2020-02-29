@@ -32,6 +32,6 @@ namespace HotelManager.Models
         [Required]
         public string Number { get; set; }
 
-        List<Reservation> Reservations { get; set; }
+        public virtual List<Reservation>  Reservations { get; set; }
     }
 }

@@ -240,11 +240,17 @@
     <Content Include="Scripts\WebForms\WebUIValidation.js" />
     <Content Include="Site.Master" />
     <Content Include="ViewSwitcher.ascx" />
+    <Content Include="Views\Admin\AddRoom.aspx" />
+    <Content Include="Views\Admin\EditRoom.aspx" />
     <Content Include="Views\Admin\EditUser.aspx" />
+    <Content Include="Views\Admin\Rooms.aspx" />
+    <Content Include="Views\User\AddReservation.aspx" />
     <Content Include="Views\User\EditClient.aspx" />
+    <Content Include="Views\User\EditReservation.aspx" />
     <Content Include="Views\User\RegisterClient.aspx" />
     <Content Include="Views\Admin\Users.aspx" />
     <Content Include="Views\User\Clients.aspx" />
+    <Content Include="Views\User\Reservations.aspx" />
     <Content Include="Web.config" />
     <Content Include="Bundle.config" />
     <Content Include="Site.Mobile.Master" />
@@ -381,6 +387,7 @@
       <DependentUpon>Contact.aspx</DependentUpon>
     </Compile>
     <Compile Include="Controllers\DBManager.cs" />
+    <Compile Include="Controllers\Reservation.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -402,6 +409,8 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ListClient.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\ListReservation.cs" />
+    <Compile Include="Models\ListRoom.cs" />
     <Compile Include="Models\ListUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Site.Master.cs">
@@ -426,6 +435,20 @@
     <Compile Include="ViewSwitcher.ascx.designer.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Views\Admin\AddRoom.aspx.cs">
+      <DependentUpon>AddRoom.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Admin\AddRoom.aspx.designer.cs">
+      <DependentUpon>AddRoom.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\EditRoom.aspx.cs">
+      <DependentUpon>EditRoom.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Admin\EditRoom.aspx.designer.cs">
+      <DependentUpon>EditRoom.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Views\Admin\EditUser.aspx.cs">
       <DependentUpon>EditUser.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -433,12 +456,33 @@
     <Compile Include="Views\Admin\EditUser.aspx.designer.cs">
       <DependentUpon>EditUser.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Views\Admin\Rooms.aspx.cs">
+      <DependentUpon>Rooms.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Admin\Rooms.aspx.designer.cs">
+      <DependentUpon>Rooms.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\User\AddReservation.aspx.cs">
+      <DependentUpon>AddReservation.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\User\AddReservation.aspx.designer.cs">
+      <DependentUpon>AddReservation.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Views\User\EditClient.aspx.cs">
       <DependentUpon>EditClient.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Views\User\EditClient.aspx.designer.cs">
       <DependentUpon>EditClient.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\User\EditReservation.aspx.cs">
+      <DependentUpon>EditReservation.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\User\EditReservation.aspx.designer.cs">
+      <DependentUpon>EditReservation.aspx</DependentUpon>
     </Compile>
     <Compile Include="Views\User\RegisterClient.aspx.cs">
       <DependentUpon>RegisterClient.aspx</DependentUpon>
@@ -460,6 +504,13 @@
     </Compile>
     <Compile Include="Views\User\Clients.aspx.designer.cs">
       <DependentUpon>Clients.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\User\Reservations.aspx.cs">
+      <DependentUpon>Reservations.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\User\Reservations.aspx.designer.cs">
+      <DependentUpon>Reservations.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup />
