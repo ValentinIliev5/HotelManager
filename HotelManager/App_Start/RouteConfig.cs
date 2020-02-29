@@ -11,17 +11,35 @@ namespace HotelManagerReservationsPt3
     {
         public static void RegisterRoutes(RouteCollection routes)
         {
-            var settings = new FriendlyUrlSettings();
-            settings.AutoRedirectMode = RedirectMode.Permanent;
-            routes.EnableFriendlyUrls(settings);
-  
-            routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+            routes.MapPageRoute(
+                "Register",
+                "Register",
+                "~/Account/Register.aspx"
+            );
 
-            routes.MapRoute(
-                    name: "Default",
-                    url: "{controller}/{action}/{id}",
-                    defaults: new { action = "Index", id = UrlParameter.Optional }
-                );
+            routes.MapPageRoute(
+                "Login",
+                "Login",
+                "~/Account/Login.aspx"
+            );
+
+            routes.MapPageRoute(
+                "Users",
+                "Admin/Users",
+                "~/Views/Admin/Users.aspx"
+            );
+
+            routes.MapPageRoute(
+                "Edit-User",
+                "Admin/Users/EditUser/{UserID}",
+                "~/Views/Admin/EditUser.aspx"
+            );
+
+            routes.MapPageRoute(
+                "Add-Client",
+                "User/Clients/AddClient",
+                "~/Views/User/RegisterClient.aspx"
+            );
         }
     }
 }

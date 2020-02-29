@@ -231,3 +231,4 @@ D:\HotelManager\HotelManager\obj\Debug\HotelManagerReservationsPt3.csproj.CopyCo
 D:\HotelManager\HotelManager\obj\Debug\HotelManagerReservationsPt3.dll
 D:\HotelManager\HotelManager\obj\Debug\HotelManagerReservationsPt3.pdb
 D:\HotelManager\HotelManager\obj\Debug\HotelManagerReservationsPt3.Migrations.HotelDB2.resources
+D:\HotelManager\HotelManager\bin\System.Linq.Dynamic.dll

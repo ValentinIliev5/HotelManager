@@ -6,12 +6,14 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Linq.Dynamic;
 using System.Threading.Tasks;
 
 namespace HotelManager.DBMethods
 {
     public static class DBManager
     {
+        //User
         public static bool AddUser(string UserID, string FirstName, string MiddleName, string LastName, string EGN, string Phone)
         {
             try
@@ -77,12 +79,12 @@ namespace HotelManager.DBMethods
                     context.SaveChanges();
                 }
 
-                ApplicationDbContext apContext = new ApplicationDbContext();
-
-
-                var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(apContext));
-                UserManager.AddToRole(UserID, "ADMIN");
-                apContext.SaveChanges();
+                using (ApplicationDbContext apContext = new ApplicationDbContext())
+                {
+                    var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(apContext));
+                    UserManager.AddToRole(UserID, "ADMIN");
+                    apContext.SaveChanges();
+                }
             }
             catch (Exception)
             {
@@ -160,7 +162,7 @@ namespace HotelManager.DBMethods
                     row["EGN"] = user.EGN;
                     row["Phone"] = user.Phone;
                     row["HiredDate"] = user.HireDate.ToShortDateString();
-                    if(user.FiredDate == null)
+                    if (user.FiredDate == null)
                     {
                         row["FiredDate"] = "-";
                     }
@@ -185,6 +187,64 @@ namespace HotelManager.DBMethods
             return true;
         }
 
+        public static bool ListUsers(string ColumnName, out List<ListUser> users)
+        {
+            try
+            {
+                List<User> dbUsers = new List<User>();
+                List<ApplicationUser> appUsers = new List<ApplicationUser>();
+                users = new List<ListUser>();
+
+                using (HotelDBContext context = new HotelDBContext())
+                {
+                    dbUsers = context.Users.ToList();
+                }
+
+                using (ApplicationDbContext applicationDbContext = new ApplicationDbContext())
+                {
+                    appUsers = applicationDbContext.Users.ToList();
+                }
+
+                foreach (var user in dbUsers)
+                {
+                    ApplicationUser appUser = appUsers.First(w => w.Id == user.UserID);
+
+                    ListUser listUser = new ListUser();
+
+                    listUser.UserID = user.UserID;
+                    listUser.Username = appUser.UserName;
+                    listUser.Email = appUser.Email;
+                    listUser.FullName = user.FirstName + " " + user.MiddleName + " " + user.LastName;
+                    listUser.EGN = user.EGN;
+                    listUser.Phone = user.Phone;
+                    listUser.HiredDate = user.HireDate.ToShortDateString();
+                    if (user.FiredDate == null)
+                    {
+                        listUser.FiredDate = "-";
+                    }
+                    else
+                    {
+                        listUser.FiredDate = user.FiredDate.Value.ToShortDateString();
+                    }
+                    listUser.IsActive = user.IsActive ? "1" : "0";
+
+                    users.Add(listUser);
+                }
+
+                if (ColumnName != "")
+                {
+                    users = users.OrderBy(ColumnName).ToList();
+                }
+            }
+            catch (Exception)
+            {
+                users = new List<ListUser>();
+                return false;
+            }
+
+            return true;
+        }
+
         public static bool IsUserNotFiredOrDeleted(string UserID)
         {
             try
@@ -203,6 +263,122 @@ namespace HotelManager.DBMethods
             }
             catch (Exception)
             {
+                return false;
+            }
+
+            return true;
+        }
+
+        //Username/Email/First Name/Middle Name/Last Name/EGN/Phone/IsAdmin
+        public static bool FindUser(string UserID, out List<string> properties)
+        {
+
+            try
+            {
+                properties = new List<string>();
+
+                User user = new User();
+                ApplicationUser appUser = new ApplicationUser();
+
+                using (ApplicationDbContext appContext = new ApplicationDbContext())
+                {
+                    appUser = appContext.Users.First(w => w.Id == UserID);
+                }
+
+                using (HotelDBContext context = new HotelDBContext())
+                {
+                    user = context.Users.First(w => w.UserID == UserID);
+                }
+
+                properties.Add(appUser.UserName);
+                properties.Add(appUser.Email);
+                properties.Add(user.FirstName);
+                properties.Add(user.MiddleName);
+                properties.Add(user.LastName);
+                properties.Add(user.EGN);
+                properties.Add(user.Phone);
+                properties.Add(user.IsAdmin ? "1" : "0");
+            }
+            catch (Exception)
+            {
+                properties = new List<string>();
+                return false;
+            }
+
+            return true;
+        }
+
+        public static bool EditUser(string UserID, string Username, string Email, string FirstName, string MiddleName, string LastName, string EGN, string Phone, bool IsAdmin)
+        {
+            try
+            {
+                using (ApplicationDbContext appContext = new ApplicationDbContext())
+                {
+                    ApplicationUser appUser = new ApplicationUser();
+                    appUser = appContext.Users.First(w => w.Id == UserID);
+                    
+                    appUser.UserName = Username;
+                    appUser.Email = Email;
+
+                    var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(appContext));
+
+                    if (IsAdmin)
+                    {
+                        UserManager.AddToRole(UserID, "ADMIN");
+                    }
+                    else
+                    {
+                        UserManager.RemoveFromRole(UserID, "ADMIN");
+                    }
+
+                    appContext.SaveChanges();
+                }
+
+                using (HotelDBContext context = new HotelDBContext())
+                {
+                    User user = new User();
+                    user = context.Users.First(w => w.UserID == UserID);
+
+                    user.FirstName = FirstName;
+                    user.MiddleName = MiddleName;
+                    user.LastName = LastName;
+                    user.EGN = EGN;
+                    user.Phone = Phone;
+                    user.IsAdmin = IsAdmin;
+
+                    context.SaveChanges();
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        //Client
+
+        public static bool AddClient(string FirstName, string MiddleName, string LastName, string Phone, bool isAdult)
+        {
+            try
+            {
+                Client client = new Client();
+                client.FirstName = FirstName;
+                client.MiddleName = MiddleName;
+                client.LastName = LastName;
+                client.Phone = Phone;
+                client.IsAdult = isAdult;
+
+                using (HotelDBContext context = new HotelDBContext())
+                {
+                    context.Clients.Add(client);
+
+                    context.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                string a = ex.Message;
                 return false;
             }
 

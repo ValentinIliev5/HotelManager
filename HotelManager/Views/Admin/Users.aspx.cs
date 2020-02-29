@@ -1,4 +1,5 @@
 ﻿using HotelManager.DBMethods;
+using HotelManagerReservationsPt3.Models;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -13,11 +14,32 @@ namespace HotelManagerReservationsPt3.Views.Admin
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if(!IsPostBack)
+            if (!IsPostBack)
             {
-                BindListView();
+                UserDataPager.PageSize = Convert.ToInt32(PageDropDown.SelectedValue);
+                UserList.DataBind();
             }
 
+        }
+
+
+        protected void FireCommandAction_Command(object sender, CommandEventArgs e)
+        {
+            if (e.CommandArgument == null)
+            {
+                Response.Write("<script>alert('Error in database.')</script>");
+            }
+            else
+            {
+                if (DBManager.FireUser(e.CommandArgument.ToString()))
+                {
+                    UserList.DataBind();
+                }
+                else
+                {
+                    Response.Write("<script>alert('Error in database.')</script>");
+                }
+            }
         }
 
         private void BindListView()
@@ -35,23 +57,10 @@ namespace HotelManagerReservationsPt3.Views.Admin
             }
         }
 
-        protected void FireCommandAction_Command(object sender, CommandEventArgs e)
+        protected void PageDropDown_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if(e.CommandArgument == null)
-            {
-                Response.Write("<script>alert('Error in database.')</script>");
-            }
-            else
-            {
-                if(DBManager.FireUser(e.CommandArgument.ToString()))
-                {
-                    BindListView();
-                }
-                else
-                {
-                    Response.Write("<script>alert('Error in database.')</script>");
-                }
-            }
+            UserDataPager.PageSize = Convert.ToInt32(PageDropDown.SelectedValue);
+            UserList.DataBind();
         }
     }
 }

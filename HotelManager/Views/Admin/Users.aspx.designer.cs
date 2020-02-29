@@ -24,6 +24,24 @@ namespace HotelManagerReservationsPt3.Views.Admin
         protected global::System.Web.UI.WebControls.ListView UserList;
 
         /// <summary>
+        /// UserDataPager control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DataPager UserDataPager;
+
+        /// <summary>
+        /// PageDropDown control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList PageDropDown;
+
+        /// <summary>
         /// ErrorMessage control.
         /// </summary>
         /// <remarks>
@@ -31,5 +49,14 @@ namespace HotelManagerReservationsPt3.Views.Admin
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.PlaceHolder ErrorMessage;
+
+        /// <summary>
+        /// UserDataSource control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ObjectDataSource UserDataSource;
     }
 }
