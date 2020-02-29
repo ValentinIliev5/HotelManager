@@ -241,10 +241,12 @@
     <Content Include="Site.Master" />
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="Views\Admin\EditUser.aspx" />
+    <Content Include="Views\User\AddReservation.aspx" />
     <Content Include="Views\User\EditClient.aspx" />
     <Content Include="Views\User\RegisterClient.aspx" />
     <Content Include="Views\Admin\Users.aspx" />
     <Content Include="Views\User\Clients.aspx" />
+    <Content Include="Views\User\Reservations.aspx" />
     <Content Include="Web.config" />
     <Content Include="Bundle.config" />
     <Content Include="Site.Mobile.Master" />
@@ -433,6 +435,13 @@
     <Compile Include="Views\Admin\EditUser.aspx.designer.cs">
       <DependentUpon>EditUser.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Views\User\AddReservation.aspx.cs">
+      <DependentUpon>AddReservation.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\User\AddReservation.aspx.designer.cs">
+      <DependentUpon>AddReservation.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Views\User\EditClient.aspx.cs">
       <DependentUpon>EditClient.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -460,6 +469,13 @@
     </Compile>
     <Compile Include="Views\User\Clients.aspx.designer.cs">
       <DependentUpon>Clients.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\User\Reservations.aspx.cs">
+      <DependentUpon>Reservations.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\User\Reservations.aspx.designer.cs">
+      <DependentUpon>Reservations.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup />

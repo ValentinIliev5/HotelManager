@@ -15,16 +15,15 @@ namespace HotelManager.Models
 
         [Required]
         public int ID { get; set; }
+        [Required]
+        public int UserID { get; set; }
+
+        public User User { get; set; }
 
         [Required]
         public int RoomID { get; set; }
-        [Required]
-        public Room Room { get; set; }
 
-        [Required]
-        public int UserID { get; set; }
-        [Required]
-        public User User { get; set; }
+        public Room Room { get; set; }
 
         [Required]
         public List<Client> Clients { get; set; }

@@ -13,6 +13,9 @@ namespace HotelManager.DBMethods
 {
     public static class DBManager
     {
+
+        public static List<Client> savedClients = new List<Client>();
+
         //User
         public static bool AddUser(string UserID, string FirstName, string MiddleName, string LastName, string EGN, string Phone)
         {
@@ -447,7 +450,18 @@ namespace HotelManager.DBMethods
 
             return true;
         }
-
+        public static int FindAndReturnUserDBID(string UserId)
+        {
+            User user = new User();
+            using (HotelDBContext context = new HotelDBContext())
+            {
+               
+                user = context.Users.First(w => w.UserID == UserId);
+                context.SaveChanges();
+                
+            }
+            return user.ID;
+        }
         public static bool EditClient(string ID, string FirstName, string MiddleName, string LastName, string Phone, bool IsAdult)
         {
             try
@@ -470,6 +484,57 @@ namespace HotelManager.DBMethods
             }
             catch (Exception)
             {
+                return false;
+            }
+
+            return true;
+        }
+        public static Room FindRoom(string RoomNumber)
+        {
+            var room = new Room();
+            try
+            {
+                using (HotelDBContext context = new HotelDBContext())
+                {
+                    room = context.Rooms.First(w => w.Number == RoomNumber);
+                    
+                    context.SaveChanges();
+                }
+            }
+            catch (Exception)
+            {
+                return null; ;
+                throw;
+            }
+            return room;
+        }
+        // Reservation
+
+        public static bool AddReservation(int RoomId, int UserId, List<Client> clients, DateTime ArrivalDate, DateTime DeparatureDate, bool HasBreackfast, bool IsAllInclusive, double Price)
+        {
+            try
+            {
+                Reservation reserv = new Reservation();
+
+                reserv.RoomID = RoomId;
+                reserv.UserID = UserId;
+                reserv.Clients = clients;
+                reserv.ArrivalDate = ArrivalDate;
+                reserv.DeparatureDate = DeparatureDate;
+                reserv.HasBreakfast = HasBreackfast;
+                reserv.IsAllInclusive = IsAllInclusive;
+                reserv.Price = Price;
+
+                using (HotelDBContext context = new HotelDBContext())
+                {
+                    context.Reservations.Add(reserv);
+
+                    context.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                string a = ex.Message;
                 return false;
             }
 
