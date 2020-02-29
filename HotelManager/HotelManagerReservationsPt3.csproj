@@ -243,6 +243,7 @@
     <Content Include="Views\Admin\EditUser.aspx" />
     <Content Include="Views\User\RegisterClient.aspx" />
     <Content Include="Views\Admin\Users.aspx" />
+    <Content Include="Views\User\Clients.aspx" />
     <Content Include="Web.config" />
     <Content Include="Bundle.config" />
     <Content Include="Site.Mobile.Master" />
@@ -398,6 +399,7 @@
       <DependentUpon>202002282010272_HotelDB2.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\ListClient.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ListUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -443,6 +445,13 @@
     </Compile>
     <Compile Include="Views\Admin\Users.aspx.designer.cs">
       <DependentUpon>Users.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\User\Clients.aspx.cs">
+      <DependentUpon>Clients.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\User\Clients.aspx.designer.cs">
+      <DependentUpon>Clients.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup />

@@ -94,30 +94,6 @@ namespace HotelManager.DBMethods
             return true;
         }
 
-        /// <summary>
-        /// TODO
-        /// </summary>
-        /// <param name="ID"></param>
-        /// <param name="user"></param>
-        /// <returns></returns>
-        public static bool EditUser(int ID, User user)
-        {
-            try
-            {
-                using (HotelDBContext context = new HotelDBContext())
-                {
-                    var userToEdit = context.Users.Find(ID);
-
-                    //TODO
-                }
-            }
-            catch (Exception)
-            {
-                return false;
-            }
-
-            return true;
-        }
 
         public static bool ListUsers(out DataTable users)
         {
@@ -316,7 +292,7 @@ namespace HotelManager.DBMethods
                 {
                     ApplicationUser appUser = new ApplicationUser();
                     appUser = appContext.Users.First(w => w.Id == UserID);
-                    
+
                     appUser.UserName = Username;
                     appUser.Email = Email;
 
@@ -385,5 +361,62 @@ namespace HotelManager.DBMethods
             return true;
         }
 
+        public static bool ListClients(string ColumnName, out List<ListClient> clients)
+        {
+            try
+            {
+                clients = new List<ListClient>();
+
+                var dbClients = new List<Client>();
+
+                using (HotelDBContext context = new HotelDBContext())
+                {
+                    dbClients = context.Clients.ToList();
+                }
+
+                foreach (var dbClient in dbClients)
+                {
+                    ListClient client = new ListClient();
+                    client.ID = dbClient.ID;
+                    client.FullName = dbClient.FirstName + " " + dbClient.MiddleName + " " + dbClient.LastName;
+                    client.Phone = dbClient.Phone;
+                    client.IsAdult = dbClient.IsAdult? "1" : "0";
+
+                    clients.Add(client);
+                }
+
+                if (ColumnName != "")
+                {
+                    clients = clients.OrderBy(ColumnName).ToList();
+                }
+            }
+            catch (Exception)
+            {
+                clients = new List<ListClient>();
+                return false;
+            }
+
+            return true;
+        }
+
+        public static bool DeleteClient(string ID)
+        {
+            try
+            {
+                using (HotelDBContext context = new HotelDBContext())
+                {
+                    int ClientID = Convert.ToInt32(ID);
+                    context.Clients.Remove(context.Clients.First(w => w.ID == ClientID));
+                    context.SaveChanges();
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
+            return true;
+        }
     }
+
 }

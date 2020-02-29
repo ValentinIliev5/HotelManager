@@ -11,26 +11,26 @@ namespace HotelManagerReservationsPt3.Views.Admin
 {
 
 
-    public partial class Users
+    public partial class Clients
     {
 
         /// <summary>
-        /// UserList control.
+        /// ClientList control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ListView UserList;
+        protected global::System.Web.UI.WebControls.ListView ClientList;
 
         /// <summary>
-        /// UserDataPager control.
+        /// ClientDataPager control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DataPager UserDataPager;
+        protected global::System.Web.UI.WebControls.DataPager ClientDataPager;
 
         /// <summary>
         /// PageDropDown control.
@@ -51,12 +51,12 @@ namespace HotelManagerReservationsPt3.Views.Admin
         protected global::System.Web.UI.WebControls.PlaceHolder ErrorMessage;
 
         /// <summary>
-        /// UserDataSource control.
+        /// ClientDataSource control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ObjectDataSource UserDataSource;
+        protected global::System.Web.UI.WebControls.ObjectDataSource ClientDataSource;
     }
 }

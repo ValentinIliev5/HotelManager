@@ -10,20 +10,20 @@ using System.Web.UI.WebControls;
 
 namespace HotelManagerReservationsPt3.Views.Admin
 {
-    public partial class Users : System.Web.UI.Page
+    public partial class Clients : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-                UserDataPager.PageSize = Convert.ToInt32(PageDropDown.SelectedValue);
-                UserList.DataBind();
+                ClientDataPager.PageSize = Convert.ToInt32(PageDropDown.SelectedValue);
+                ClientList.DataBind();
             }
 
         }
 
 
-        protected void FireCommandAction_Command(object sender, CommandEventArgs e)
+        protected void DeleteCommandAction_Command(object sender, CommandEventArgs e)
         {
             if (e.CommandArgument == null)
             {
@@ -31,9 +31,9 @@ namespace HotelManagerReservationsPt3.Views.Admin
             }
             else
             {
-                if (DBManager.FireUser(e.CommandArgument.ToString()))
+                if (DBManager.DeleteClient(e.CommandArgument.ToString()))
                 {
-                    UserList.DataBind();
+                    ClientList.DataBind();
                 }
                 else
                 {
@@ -42,25 +42,10 @@ namespace HotelManagerReservationsPt3.Views.Admin
             }
         }
 
-        private void BindListView()
-        {
-            DataTable dt = new DataTable();
-            if (DBManager.ListUsers(out dt))
-            {
-                string test = dt.Rows[0].ToString();
-                UserList.DataSource = dt;
-                UserList.DataBind();
-            }
-            else
-            {
-                Response.Write("<script>alert('Error in database.')</script>");
-            }
-        }
-
         protected void PageDropDown_SelectedIndexChanged(object sender, EventArgs e)
         {
-            UserDataPager.PageSize = Convert.ToInt32(PageDropDown.SelectedValue);
-            UserList.DataBind();
+            ClientDataPager.PageSize = Convert.ToInt32(PageDropDown.SelectedValue);
+            ClientList.DataBind();
         }
     }
 }

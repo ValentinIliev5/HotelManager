@@ -36,6 +36,12 @@ namespace HotelManagerReservationsPt3
             );
 
             routes.MapPageRoute(
+                "Clients",
+                "User/Clients",
+                "~/Views/User/Clients.aspx"
+            );
+
+            routes.MapPageRoute(
                 "Add-Client",
                 "User/Clients/AddClient",
                 "~/Views/User/RegisterClient.aspx"
