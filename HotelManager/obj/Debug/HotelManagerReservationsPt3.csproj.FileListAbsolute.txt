@@ -349,3 +349,4 @@ C:\Users\Georgi\Desktop\HotelManager\HotelManager\obj\Debug\HotelManagerReservat
 C:\Users\Georgi\Desktop\HotelManager\HotelManager\obj\Debug\HotelManagerReservationsPt3.csproj.CopyComplete
 C:\Users\Georgi\Desktop\HotelManager\HotelManager\obj\Debug\HotelManagerReservationsPt3.dll
 C:\Users\Georgi\Desktop\HotelManager\HotelManager\obj\Debug\HotelManagerReservationsPt3.pdb
+C:\Users\Georgi\Desktop\HotelManager\HotelManager\obj\Debug\HotelManagerReservationsPt3.csprojAssemblyReference.cache
