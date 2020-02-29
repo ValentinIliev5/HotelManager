@@ -78,7 +78,7 @@
                                     <asp:Button Text="Fire" ID="FireCommandAction" CommandArgument='<%# Eval("UserID") %>' OnCommand="FireCommandAction_Command" CssClass="btn btn-danger" runat="server" Enabled='<%# Eval("IsActive").ToString() == "1"%>'></asp:Button>
                                 </td>
                                 <td>
-                                    <a class="btn btn-info" href="/Admin/Users/EditUser/<%# Eval("UserID") %>">Edit</a>
+                                    <a class="btn btn-info" href="../Admin/Users/EditUser/<%# Eval("UserID") %>">Edit</a>
                                 </td>
                             </tr>
                         </ItemTemplate>

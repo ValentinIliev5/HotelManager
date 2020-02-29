@@ -241,6 +241,7 @@
     <Content Include="Site.Master" />
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="Views\Admin\EditUser.aspx" />
+    <Content Include="Views\User\EditClient.aspx" />
     <Content Include="Views\User\RegisterClient.aspx" />
     <Content Include="Views\Admin\Users.aspx" />
     <Content Include="Views\User\Clients.aspx" />
@@ -432,6 +433,13 @@
     <Compile Include="Views\Admin\EditUser.aspx.designer.cs">
       <DependentUpon>EditUser.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Views\User\EditClient.aspx.cs">
+      <DependentUpon>EditClient.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\User\EditClient.aspx.designer.cs">
+      <DependentUpon>EditClient.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Views\User\RegisterClient.aspx.cs">
       <DependentUpon>RegisterClient.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -459,6 +467,7 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />
+    <Content Include="Views\User\web.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

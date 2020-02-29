@@ -380,7 +380,7 @@ namespace HotelManager.DBMethods
                     client.ID = dbClient.ID;
                     client.FullName = dbClient.FirstName + " " + dbClient.MiddleName + " " + dbClient.LastName;
                     client.Phone = dbClient.Phone;
-                    client.IsAdult = dbClient.IsAdult? "1" : "0";
+                    client.IsAdult = dbClient.IsAdult ? "1" : "0";
 
                     clients.Add(client);
                 }
@@ -417,6 +417,65 @@ namespace HotelManager.DBMethods
 
             return true;
         }
+
+        public static bool FindClient(string ID, out List<string> properties)
+        {
+
+            try
+            {
+                properties = new List<string>();
+
+                int ClientID = int.Parse(ID);
+                Client client = new Client();
+
+                using (HotelDBContext context = new HotelDBContext())
+                {
+                    client = context.Clients.First(w => w.ID == ClientID);
+                }
+
+                properties.Add(client.FirstName);
+                properties.Add(client.MiddleName);
+                properties.Add(client.LastName);
+                properties.Add(client.Phone);
+                properties.Add(client.IsAdult ? "1" : "0");
+            }
+            catch (Exception)
+            {
+                properties = new List<string>();
+                return false;
+            }
+
+            return true;
+        }
+
+        public static bool EditClient(string ID, string FirstName, string MiddleName, string LastName, string Phone, bool IsAdult)
+        {
+            try
+            {
+                using (HotelDBContext context = new HotelDBContext())
+                {
+                    int ClientID = int.Parse(ID);
+
+                    Client client = new Client();
+                    client = context.Clients.First(w => w.ID == ClientID);
+
+                    client.FirstName = FirstName;
+                    client.MiddleName = MiddleName;
+                    client.LastName = LastName;
+                    client.Phone = Phone;
+                    client.IsAdult = IsAdult;
+
+                    context.SaveChanges();
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
+            return true;
+        }
     }
+
 
 }

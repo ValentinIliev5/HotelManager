@@ -46,6 +46,12 @@ namespace HotelManagerReservationsPt3
                 "User/Clients/AddClient",
                 "~/Views/User/RegisterClient.aspx"
             );
+
+            routes.MapPageRoute(
+                "Edit-Client",
+                "User/Clients/EditClient/{ID}",
+                "~/Views/User/EditClient.aspx"
+            );
         }
     }
 }

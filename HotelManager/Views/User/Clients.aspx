@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Users" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Clients.aspx.cs" Inherits="HotelManagerReservationsPt3.Views.Admin.Clients" %>
+﻿<%@ Page Title="Clients" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Clients.aspx.cs" Inherits="HotelManagerReservationsPt3.Views.Admin.Clients" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <h2 class="ml-2"><%: Title %></h2>
@@ -50,7 +50,7 @@
                                     <asp:CheckBox ID="AdultCheckBox" runat="server"  Enabled="false" Checked='<%# Eval("IsAdult").ToString() == "1"%>' />
                                 </td>
                                 <td>
-                                    <a class="btn btn-info" href="#<%# Eval("ID") %>">Edit</a>
+                                    <a class="btn btn-info" href="../User/Clients/EditClient/<%# Eval("ID") %>">Edit</a>
                                 </td>
                                 <td>
                                     <asp:Button Text="Delete" ID="DeleteCommandAction" CommandArgument='<%# Eval("ID") %>' OnCommand="DeleteCommandAction_Command" CssClass="btn btn-danger" runat="server"></asp:Button>
@@ -82,7 +82,7 @@
                         <asp:ListItem>2</asp:ListItem>
                         <asp:ListItem>3</asp:ListItem>
                     </asp:DropDownList>
-                    <a class="btn btn-success pull-right" href="Clients/AddClient">Add Client</a>
+                    <a class="btn btn-success pull-right" href="../User/Clients/AddClient">Add Client</a>
                 </div>
                 <div class="form-horizontal">
                     <hr />
